@@ -7,6 +7,8 @@ import java.util.Random;
 
 import javax.swing.JPanel;
 
+// import android.view.KeyEvent;
+
 public class GamePanel extends JPanel implements ActionListener {
 
     static final int SCREEN_WIDTH = 600;
@@ -37,15 +39,22 @@ public class GamePanel extends JPanel implements ActionListener {
         newApple();
         running = true;
         timer = new Timer(DELAY, this);
+        timer.start();
     }
     public void printComponent(Graphics g) {
-
+        super.printComponent(g);
     }
     public void draw(Graphics g) {
-
+        for (int i=0; i < SCREEN_HEIGTH/UNIT_SIZE; i++) {
+            g.drawLine(i*UNIT_SIZE, 0, i*UNIT_SIZE, SCREEN_HEIGTH);
+            g.drawLine(0, i*UNIT_SIZE, SCREEN_WIDTH, i*UNIT_SIZE);
+        }
+        g.setColor(Color.red);
+        g.fillOval(appleX, appleY, UNIT_SIZE, UNIT_SIZE);
     }
     public void newApple() {
-
+        appleX = random.nextInt((int)(SCREEN_WIDTH/UNIT_SIZE))*UNIT_SIZE;
+        appleY = random.nextInt((int)(SCREEN_HEIGTH/UNIT_SIZE))*UNIT_SIZE;
     }
     public void move() {
 
@@ -64,9 +73,9 @@ public class GamePanel extends JPanel implements ActionListener {
 
     }
     public class MyKeyAdaptor extends KeyAdapter {
-        @Override
-        public void keyPressed(keyEvent e) {
+     /*    @Override
+        public void keyPressed(KeyEvent e) {
 
-        }
+        } */
     }
 }
